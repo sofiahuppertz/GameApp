@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Tahoma', sans-serif;
+  background: rgb(255, 255, 255);
+  background-image: linear-gradient(to top, #004ca9, #c80064);
+}
+
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  display : flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
