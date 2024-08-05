@@ -38,34 +38,25 @@
 }
 
 .paddle {
+  top: calc(50% - 55px);
   height: 110px;
-  width: 18px;
+  width: 15px;
   position: fixed;
   border: none;
+  border-radius: 10px;
+  box-shadow: inset 0 0 18px rgb(226, 226, 182, 0.504),
+  inset -6px 0 18px #03346E,
+  inset 6px 0 18px #03346E,
+  inset -6px 0 30px #03346E,
+  inset 6px 0 30px #03346E,
+  0 0 18px rgb(226, 226, 182), 4px 0 18px
+  #03346E, -4px 0 18px #03346E;
 }
 
 .paddle_1 {
-  top: calc(15% + 55px);
   left: calc(20% + 30px);
-  border-radius: 10px;
-  box-shadow: inset 0 0 18px rgb(226, 226, 182, 0.504),
-      inset -6px 0 18px #03346E,
-      inset 6px 0 18px #03346E,
-      inset -6px 0 30px #03346E,
-      inset 6px 0 30px #03346E,
-      0 0 18px rgb(226, 226, 182), 4px 0 18px
-      #03346E, -4px 0 18px #03346E;
 }
 
 .paddle_2 {
-  top: calc(85% - 55px - 110px);
   right: calc(20% + 30px);
-  border-radius: 10px;
-  box-shadow: inset 0 0 18px rgb(226, 226, 182, 0.504),
-      inset -6px 0 18px #03346E,
-      inset 6px 0 18px #03346E,
-      inset -6px 0 30px #03346E,
-      inset 6px 0 30px #03346E,
-      0 0 18px rgb(226, 226, 182), 4px 0 18px
-      #03346E, -4px 0 18px #03346E;
 }
