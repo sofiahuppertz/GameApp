@@ -11,7 +11,7 @@ export class Panel
 
   boostScore(player_index)
   {
-    this.#scores[player_index].innerHTML = parseInt(this.#scores[player].innerHTML) + 1;
+    this.#scores[player_index].innerHTML = parseInt(this.#scores[player_index].innerHTML) + 1;
   }
 
   changeMessage(message)

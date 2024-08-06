@@ -8,32 +8,51 @@ export class Game {
   #board;
   #paddles;
   #ball;
+  #isGameRunning;
 
   constructor ()
   {
     this.#panel = new Panel();
     this.#board = new Board(document.querySelector('.board'));
     this.#paddles = [
-      new Paddle(document.querySelector('.paddle1'), 'w', 's'),
-      new Paddle(document.querySelector('.paddle2'), 'ArrowUp', 'ArrowDown')
+      new Paddle(document.querySelector('.paddle_1'), 'w', 's'),
+      new Paddle(document.querySelector('.paddle_2'), 'ArrowUp', 'ArrowDown')
     ];
     this.#ball = new Ball(document.querySelector('.ball'));
+    this.#isGameRunning = false;
   }
 
-  startGame()
-  {
-    this.#panel.changeMessage('Press Enter To Play');
-    document.addEventListener('keydown', (e) => {
-      if (e.key == 'Enter') 
+  setupEventListeners() {
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') 
       {
-        this.#panel.changeMessage('Game Started');
-        this.#animatePaddles();
-        if (this.#animateBall() == 1)
+        if (this.#isGameRunning)
         {
+          this.pauseGame();
+        } else {
           this.startGame();
         }
       }
     });
+  }
+
+
+  startGame()
+  {
+    if (this.#isGameRunning) return;
+    this.#panel.changeMessage('Game is running...');
+    this.#isGameRunning = true;
+    this.#animateBall();
+    this.#animatePaddles();
+  }
+
+  pauseGame()
+  {
+    if (this.#isGameRunning)
+    {
+      this.#isGameRunning = false;
+      this.#panel.changeMessage('Game is paused...');
+    }
   }
 
   /* Intersection functions and game logic */
@@ -42,14 +61,14 @@ export class Game {
   {
     if (this.#ball.getCoords().left <= this.#board.getLeft())
     {
-      panel.boostScore(1);
-      panel.changeMessage('Player 2 scored!');
+      this.#panel.boostScore(1);
+      this.#panel.changeMessage('Player 2 scored!');
       return 1;
     }
     else if (this.#ball.getCoords().right >= this.#board.getRight())
     {
-      panel.boostScore(0);
-      panel.changeMessage('Player 1 scored!');
+      this.#panel.boostScore(0);
+      this.#panel.changeMessage('Player 1 scored!');
       return 1;
     }
     return 0;
@@ -66,7 +85,7 @@ export class Game {
       }
       else 
       {
-        this.#ball.resetDirection();
+        this.#ball.resetDirection('y');
       }
     }
     return 0;
@@ -74,31 +93,39 @@ export class Game {
 
   #ballPaddleIntersection() 
   {
-    if (this.#paddles.isTouching(this.#ball.getCoords())) 
+    for (let paddle of this.#paddles)
     {
-      this.#ball.resetDirection();
-      this.#ball.setSlopes();
+      if (paddle.isTouching(this.#ball.getCoords())) 
+      {
+        this.#ball.resetDirection('x');
+      }
     }
-
   }
 
   /* Object Animation functions */
 
   #animateBall() 
   {
-    if (this.#ballBoardIntersection(this.#ball, this.#board) != 0)
-      return 1; // Someone scored...
+    if (!this.#isGameRunning) 
+    {
+      return;
+    }
+    if (this.#ballBoardIntersection(this.#ball, this.#board) === 1)
+    {
+      this.#isGameRunning = false;
+      return;
+    }
     this.#ballPaddleIntersection(this.#ball, this.#paddles);
     this.#ball.move();
     requestAnimationFrame(() => this.#animateBall(this.#ball, this.#board, this.#paddles, this.#panel));
-    return 0;
   }
 
   #animatePaddles()
   {
-    for (let paddle in this.#paddles)
+    for (let paddle of this.#paddles)
     {
-      paddle.setEventListener();
+      paddle.setEventListener(this.#board);
     }
   }
+
 };

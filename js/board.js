@@ -1,5 +1,4 @@
 export class Board {
-
   #htmlElement;
   #top;
   #bottom;
@@ -20,6 +19,7 @@ export class Board {
     this.#right = coords.right;
     this.#left = coords.left;
     this.#htmlElement = board; 
+
   }
 
   // Getters
@@ -37,4 +37,5 @@ export class Board {
     }
     return false;
   }
+  
 };

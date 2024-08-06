@@ -4,50 +4,74 @@ export class Paddle {
   #speed;
   #coords;
   #keys;
+  #targetTop;
 
-  static #moves = {
-    'w': () => move(board, 'up'),
-    's': () => move(board, 'down'),
-    'ArrowUp': () => move(board,'up'),
-    'ArrowDown': () => move(board, 'down')
-  };
-
-  constructor (paddle, keyup, keydown, speed=0.1)
+  constructor (paddle, keyup, keydown, speed=0.1, pprint=false)
   {
     this.#htmlElem = paddle;
     this.#speed = speed;
     this.#keys = [keyup, keydown];
     this.#coords = this.#htmlElem.getBoundingClientRect();
+    this.#targetTop = this.#coords.top;
+    if (pprint){
+      console.log(this.#coords);
+    }
   }
 
-  move(board, direction)
+  #animateMove()
   {
-    const distance = window.innerHeight * this.#speed;
-    const newTop = (direction === 'up') ? this.#coords.top - distance : this.#coords.top + distance;
-    
-    const newCoords = new DOMRect( // Dom rectangle
-      this.#coords.left,
-      newTop,
-      this.#coords.width,
-      this.#coords.height
-    ); 
+    const currentTop = this.#coords.top;
+    const distance = this.#targetTop - currentTop;
+    const step = distance * 0.1;
 
-    if (board.isTouchingBorder(newCoords)) { return; }
+    if (Math.abs(step) > 0.5)
+    {
+      this.#htmlElem.style.top = (currentTop + step) + 'px';
+      this.#coords = this.#htmlElem.getBoundingClientRect();
+      requestAnimationFrame(() => this.#animateMove());
+    }
+    else
+    {
+      this.#htmlElem.style.top = this.#targetTop + 'px';
+      this.#coords = this.#htmlElem.getBoundingClientRect();
+    }
+  }
+  #move(board, direction)
+  {
+    if (direction === 'up')
+    {
+      this.#targetTop = Math.max(board.getTop(), this.#coords.top - 
+        this.#speed * window.innerHeight);
+    }
+    else if (direction === 'down')
+    {
+      this.#targetTop = Math.min(board.getBottom() - this.#coords.height, 
+        this.#coords.top + this.#speed * window.innerHeight);
+    }
 
-    this.#htmlElem.style.top = newTop + 'px';
-    this.#coords = this.#htmlElem.getBoundingClientRect();
+    this.#animateMove();
   };
 
-  setEventListener()
+  isTouching(coords) {
+    if (this.#coords.top <= coords.bottom && this.#coords.bottom >= coords.top) {
+      if ((this.#coords.left <= coords.right && this.#coords.right >= coords.left) ||
+          (this.#coords.right >= coords.left && this.#coords.left <= coords.right)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  setEventListener(board)
   {
     document.addEventListener('keydown', (event) => {
-      for(let key of this.#keys)
+      if (event.key === this.#keys[0]) 
       {
-        if (event.key == key)
-        {
-          Paddle.#moves[event.key]();
-          break;
-        }
+        requestAnimationFrame(() => this.#move(board, 'up'));
+      }
+      else if(event.key === this.#keys[1])
+      {
+        requestAnimationFrame(() => this.#move(board, 'down')); 
       }
     });
   };
