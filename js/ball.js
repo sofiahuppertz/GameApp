@@ -9,7 +9,7 @@ export class Ball {
   #direction_y;
   #coords;
 
-  constructor (ball, speed=3)
+  constructor (ball, speed=3, pprint=false)
   {
     this.#speed = speed;
     this.setSlopes();
@@ -17,7 +17,9 @@ export class Ball {
     this.#direction_y = Math.floor(Math.random() * 2); // 0 or 1
     this.#coords = ball.getBoundingClientRect();
     this.#htmlElement = ball;
-
+    if (pprint) {
+      console.log(this.#coords);
+    }
   }
 
   setSlopes() {

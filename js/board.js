@@ -37,4 +37,4 @@ export class Board {
     }
     return false;
   }
-}
+};
