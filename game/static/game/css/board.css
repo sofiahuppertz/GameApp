@@ -1,0 +1,77 @@
+.board {
+  height: 70vh;
+  width: 60vw;
+  min-width: 560px;
+  background-image: url('../images/background/nebula.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+
+.ball {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  position: fixed;
+  top: calc(50% - 20px);
+  left: calc(50% - 20px);
+}
+
+.ball_effect {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%; 
+  animation: spinBall 2.0s linear infinite;
+  background-color: transparent;
+  background-image: url(../images/balls/marie-antoinette-head.png);
+  background-size: cover;
+  background-position: center;
+  /* box-shadow: 0 0 20px 5px rgb(226, 226, 182, 0.695); */
+}
+
+@keyframes spinBall {
+  100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+  }
+}
+
+.paddle {
+  position: absolute;
+  top: calc(50% - 50px);
+  height: 100px;
+  width: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #03346E;
+
+}
+
+.hit {
+  box-shadow: 0 0 20px 5px #AF47D2;
+}
+
+/* @keyframes vibrationEffect {
+  0% { transform: translateY(0); }
+  15% { transform: translateY(-0.5deg); }
+  30% { transform: translateY(0.5deg); }
+  45% { transform: translateY(-0.5deg); }
+  60% { transform: translateY(0.5deg); }
+  75% { transform: translateY(-0.5deg); }
+  100% { transform: translateY(0); }
+}
+
+.vibration {
+  box-shadow: 0 0 20px 5px #AF47D2;
+  animation: vibrationEffect 1s ease-in-out infinite;
+} */
+
+
+.paddle_1 {
+  left: 21%;
+}
+.paddle_2 {
+  right: 21%;
+}

@@ -1,0 +1,22 @@
+.panel {
+  height: 8vh;
+  width: 60vw;
+  margin: 0 auto 20px auto;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(226, 226, 182, 0.695);
+  font-family: 'Press Start 2P', sans-serif;
+  color: #021526;
+}
+
+.score {
+  font-size: 35px;
+  font-style: bold;
+}
+
+.message {
+  font-size: 30px;
+}
+
