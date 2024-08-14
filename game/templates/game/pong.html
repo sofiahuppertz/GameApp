@@ -1,0 +1,28 @@
+{% extends 'game/base.html' %}
+{% load static %}
+
+{% block title %}Game{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'game/css/board.css' %}" />
+<link rel="stylesheet" href="{% static 'game/css/panel.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="panel rounded-corner yellow bkg-darkest-blue">
+  <p class="player_1_score score">0</p>
+  <p class="message ">Press Space 2 Play</p>
+  <p class="player_2_score score">0</p>
+</div>
+<div class="board rounded-corner">
+  <div class='ball'>
+    <div class="ball_effect"></div>
+  </div>
+  <div class="paddle paddle_1 bkg-dark-blue"></div>
+  <div class="paddle paddle_2 bkg-dark-blue"></div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="module" src="{% static 'game/js/main.js' %}" ></script>
+{% endblock %}

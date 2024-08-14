@@ -1,0 +1,30 @@
+* {
+  font-family: 'Fantasy', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+
+.rounded-corner { border-radius: 15px; }
+
+.bkg-galaxy {
+  background: rgb(251,119,60);
+  background: radial-gradient(circle, rgba(251,119,60,1) 0%, rgba(235,54,120,1) 33%, rgba(79,23,135,1) 66%, rgba(24,1,97,1) 91%);
+}
+.bkg-yellow { background-color: #FB773C;}
+.bkg-light-blue { background-color: #EB3678;}
+.bkg-dark-blue { background-color: #4F1787;}
+.bkg-darkest-blue { background-color: #180161;}
+.yellow { color: #FB773C;}
+.light-blue { color: #EB3678;}
+.dark-blue { color: #4F1787;}
+.darkest-blue { color: #180161;}
+.white { color: #F5E8C7;}

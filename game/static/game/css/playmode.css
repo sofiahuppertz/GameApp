@@ -1,0 +1,71 @@
+
+:root {
+  --componentSize: 500px;
+  --maskSize: 50px;
+  --speed: 1.5s;
+  --borderOffset: 8px;
+  --backgroundColor: transparent;
+  --animationProps: var(--speed) linear infinite alternate;
+}
+@keyframes mask-move {
+  0% { transform: translateX(0);}
+  100% { transform: translateX(calc(var(--componentSize) - var(--maskSize)));}
+}
+@keyframes mask-inner-move {
+  0% { transform: translateX(0);}
+  100% { transform: translateX(calc(-1 * (var(--componentSize) - var(--maskSize))));}
+}
+.focus {
+  margin: 15px;
+  font-size: 5rem;
+  letter-spacing: 0.3rem;
+  position: relative;
+  width: var(--componentSize);
+  white-space: nowrap;
+}
+.focus:before {
+  content: 'PLAY MODE';
+  filter: blur(3px);
+}
+.focus:after {
+  content: '';
+  position: absolute;
+  width: var(--maskSize);
+  height: calc(100% + var(--borderOffset));
+  top: calc(-1 * var(--borderOffset) / 2);
+  left: 0;
+  border-top: 3px solid;
+  border-bottom: 3px solid;
+  animation: mask-move var(--animationProps);
+}
+.focus--mask {
+  overflow: hidden;
+  position: absolute;
+  width: var(--maskSize);
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: var(--backgroundColor);
+  animation: mask-move var(--animationProps);
+}
+.focus--mask-inner {
+  animation: mask-inner-move var(--animationProps);
+}
+
+.form-playmode {
+  padding: 30px;
+}
+
+.btn-playmode {
+  font-size: 35px;
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid #EB3678;
+  background-color: transparent;
+  width: 100%;
+}
+
+.btn-playmode:hover {
+  color: #FB773C;
+  background-color: #EB3678; 
+}

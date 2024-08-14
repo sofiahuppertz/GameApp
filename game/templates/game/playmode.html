@@ -1,0 +1,21 @@
+{% extends 'game/base.html' %}
+{% load static %}
+
+{% block title %}Playmode{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'game/css/playmode.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="focus dark-blue">
+  <div class="focus--mask">
+    <div class="focus--mask-inner">PLAY MODE</div>
+  </div>
+</div>
+<form method="post" action="{% url 'playmode' %}" class="form-playmode rounded-corner bkg-yellow">
+  {% csrf_token %}
+  <button class="btn-playmode rounded-corner light-blue" type="submit" name="mode" value="practice"><b>Practice</b></button>
+  <button class="btn-playmode rounded-corner light-blue" type="submit" name="mode" value="tournament"><b>Tournament</b></button>
+</form>
+{% endblock %}
